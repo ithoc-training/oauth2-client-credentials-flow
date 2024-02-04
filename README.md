@@ -1,6 +1,6 @@
 # OAuth 2.0 Client Credentials Flow
 
-# Overview
+## Overview
 
 The OAuth Client Credentials flow is designed for server-to-server authentication, where the client application needs 
 to access resources it owns. This flow is suitable for clients that can securely store their client credentials 
@@ -56,10 +56,6 @@ status code, indicating that the client's request cannot be processed until it o
 1. Add Maven dependencies:
     
 ```xml
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-security</artifactId>
-    </dependency>
     <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>

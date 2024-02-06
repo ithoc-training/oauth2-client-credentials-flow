@@ -1,6 +1,6 @@
 # OAuth 2.0 Client Credentials Flow
 
-# Overview
+## Introduction
 
 The OAuth Client Credentials flow is designed for server-to-server authentication, where the client application needs 
 to access resources it owns. This flow is suitable for clients that can securely store their client credentials 
@@ -56,10 +56,6 @@ status code, indicating that the client's request cannot be processed until it o
 1. Add Maven dependencies:
     
 ```xml
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-security</artifactId>
-    </dependency>
     <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
@@ -122,3 +118,59 @@ curl --location 'http://localhost:18082/api/items' \
 ```
 This calls the API method and returns the response body. In case of an invalid or expired token, a 401 Unauthorized is
 returned.
+
+## Client Application
+
+1. Make use of these Maven dependencies:
+
+```xml
+
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-oauth2-client</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-webflux</artifactId>
+    </dependency>
+    <!-- [...] -->
+</dependencies>
+```
+
+2. Configure the application properties:
+
+```yaml
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: ${KEYCLOAK_CLIENT_ID}
+            client-secret: ${KEYCLOAK_CLIENT_SECRET}
+            authorization-grant-type: ${KEYCLOAK_AUTHORIZATION_GRANT_TYPE}
+        provider:
+          keycloak:
+            token-uri: ${KEYCLOAK_TOKEN_URI}
+client-application:
+  resource-server:
+    endpoint: ${RESOURCE_SERVER_ENDPOINT}
+```
+The environment variables might look like this:
+
+```shell
+KEYCLOAK_CLIENT_ID=<CLIENT_ID>
+KEYCLOAK_CLIENT_SECRET=<CLIENT_SECRET>
+KEYCLOAK_AUTHORIZATION_GRANT_TYPE=client_credentials
+KEYCLOAK_TOKEN_URI=https://integ.dynv6.net/keycloak/realms/oauth2-framework/protocol/openid-connect/token
+RESOURCE_SERVER_ENDPOINT=https://integ.dynv6.net/resource-server/api
+```
+
+3. Configure a web client:
+
+See the `WebClientConfig` class in the source code.
+
+4. Run the client:
+
+See the `WebClientTest` class in the source code. Ensure you set the environment variables before running the client.

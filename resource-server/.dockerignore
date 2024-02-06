@@ -1,0 +1,8 @@
+.env
+.idea
+.github
+target
+build.sh
+push.sh
+Dockerfile
+docker-compose.yml

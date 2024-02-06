@@ -1,0 +1,30 @@
+openapi: 3.0.3
+info:
+  title: Resource Server
+  version: 1.0.0
+servers:
+  - url: 'https://integration.dynv6.net/resource-server/api'
+    description: 'Integration Server'
+paths:
+  /items:
+    get:
+      summary: 'Get all items'
+      operationId: 'getAllItems'
+      responses:
+        '200':
+          description: 'A list of items'
+          content:
+            application/json:
+              schema:
+                type: 'array'
+                items:
+                  $ref: '#/components/schemas/Item'
+components:
+    schemas:
+      Item:
+        type: 'object'
+        properties:
+          name:
+            type: 'string'
+          description:
+            type: 'string'

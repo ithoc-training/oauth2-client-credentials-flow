@@ -1,0 +1,15 @@
+version: '3.4'
+services:
+  resource-server:
+    build: ./resource-server
+    image: olihock/resource-server:1.0.0
+    container_name: resource-server
+    restart: always
+    ports:
+      - "18082:18082"
+    volumes:
+      - "${HOME}/.m2:/root/.m2"
+    networks:
+      - network
+networks:
+  network:
